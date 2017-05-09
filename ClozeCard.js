@@ -2,9 +2,13 @@ var BasicCard = require("./BasicCard.js");
 
 function ClozeCard(text, cloze) {
     if (this instanceof ClozeCard) {
-        this.cloze = cloze;
-        this.partial = text.replace(cloze, '***');
-        this.fullText = text;
+        if (text.indexOf(cloze) > -1) {
+            this.partial = text.replace(cloze, '***');
+            this.cloze = cloze;
+            this.fullText = text;
+        } else {
+            return brokenCloze;
+        }
     } else {
         return new ClozeCard(text, cloze);
     }
